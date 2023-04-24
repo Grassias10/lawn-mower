@@ -1,4 +1,4 @@
-import discord, json
+import discord, json, datetime
 from discord.ext import commands
 import blowupbash as bub
 
@@ -29,6 +29,11 @@ async def blowupbash(ctx):
     bub.games.append(bubgame)
     await bubgame.game(ctx, bot)
 
+
+@bot.command(name="time", aliases=["currenttime"])
+async def time(ctx):
+    now = datetime.datetime.now()
+    await ctx.send("current date and time (EDT): " + str(now))
 
 if __name__ == "__main__":
     with open("secrets.json") as sec:
