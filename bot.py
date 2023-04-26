@@ -1,5 +1,6 @@
-import discord, json, datetime
+import discord, json
 from discord.ext import commands
+from datetime import datetime
 import blowupbash as bub
 
 inte = discord.Intents.all()
@@ -32,8 +33,20 @@ async def blowupbash(ctx):
 
 @bot.command(name="time", aliases=["currenttime"])
 async def time(ctx):
-    now = datetime.datetime.now()
-    await ctx.send("current date and time (EDT): " + str(now))
+    today = datetime.now()
+    ct = today.strftime("%I:%M")
+    ampm = ""
+    if int(today.strftime("%H")) < 12:
+        ampm = "am"
+    else:
+        ampm = "pm"
+    await ctx.send("current time (EDT): " + ct + ampm)
+
+@bot.command(name="date", aliases=["currentdate"])
+async def time(ctx):
+    d = str(datetime.now())
+    date = d.split(" ")
+    await ctx.send("today's date (yyyy-mm-dd): " + date[0])
 
 if __name__ == "__main__":
     with open("secrets.json") as sec:
