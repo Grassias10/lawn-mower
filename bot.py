@@ -2,6 +2,7 @@ import discord, json
 from discord.ext import commands
 from datetime import datetime
 import blowupbash as bub
+import numgame as ng
 
 inte = discord.Intents.all()
 bot = commands.Bot(command_prefix='...', intents=inte)
@@ -14,7 +15,7 @@ async def on_ready():
 
 @bot.command(name="github", aliases=["git"])
 async def github(ctx):
-    await ctx.send("https://github.com/TheFlyingJeep/blow-up-bash")
+    await ctx.send("https://github.com/Grassias10/lawn-mower")
 
 
 @bot.event
@@ -31,7 +32,7 @@ async def blowupbash(ctx):
     await bubgame.game(ctx, bot)
 
 
-@bot.command(name="time", aliases=["currenttime"])
+@bot.command(name="today", aliases=["currenttime", "time", "currentdate", "date", "datetime"])
 async def time(ctx):
     today = datetime.now()
     ct = today.strftime("%I:%M")
@@ -40,13 +41,15 @@ async def time(ctx):
         ampm = "am"
     else:
         ampm = "pm"
-    await ctx.send("current time (EDT): " + ct + ampm)
-
-@bot.command(name="date", aliases=["currentdate"])
-async def time(ctx):
     d = str(datetime.now())
     date = d.split(" ")
-    await ctx.send("today's date (yyyy-mm-dd): " + date[0])
+    await ctx.send("today is " + date[0] + " (yyyy-mm-dd). it is currently " + ct + ampm + " (EDT).")
+
+@bot.command(name="numgame", aliases=["numguess"])
+async def numgame(ctx):
+    ngame = ng.NumGame()
+    ng.games.append(ngame)
+    await ngame.game(ctx, bot)
 
 if __name__ == "__main__":
     with open("secrets.json") as sec:
