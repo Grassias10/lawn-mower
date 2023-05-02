@@ -49,6 +49,7 @@ async def time(ctx):
 async def numgame(ctx):
     ngame = ng.NumGame()
     ng.games.append(ngame)
+    await ngame.setPlayerId(ctx.author.id)
     await ngame.game(ctx, bot)
 
 if __name__ == "__main__":
