@@ -1,4 +1,5 @@
-import discord, json
+import discord
+import json
 from discord.ext import commands
 from datetime import datetime
 import blowupbash as bub
@@ -10,7 +11,7 @@ bot = commands.Bot(command_prefix='...', intents=inte)
 
 @bot.event
 async def on_ready():
-    print("Starting up bot!")
+    print("bot started!")
 
 
 @bot.command(name="github", aliases=["git"])
@@ -32,7 +33,7 @@ async def blowupbash(ctx):
     await bubgame.game(ctx, bot)
 
 
-@bot.command(name="today", aliases=["currenttime", "time", "currentdate", "date", "datetime"])
+@bot.command(name="today", aliases=["currenttime", "currentdate", "datetime", "timedate", "dt", "td"])
 async def time(ctx):
     today = datetime.now()
     ct = today.strftime("%I:%M")
@@ -44,6 +45,26 @@ async def time(ctx):
     d = str(datetime.now())
     date = d.split(" ")
     await ctx.send("today is " + date[0] + " (yyyy-mm-dd). it is currently " + ct + ampm + " (EDT).")
+
+
+@bot.command(name="date", aliases=["d"])
+async def time(ctx):
+    d = str(datetime.now())
+    date = d.split(" ")
+    await ctx.send("today is " + date[0] + " (yyyy-mm-dd).")
+
+
+@bot.command(name="time", aliases=["t"])
+async def time(ctx):
+    today = datetime.now()
+    ct = today.strftime("%I:%M")
+    ampm = ""
+    if int(today.strftime("%H")) < 12:
+        ampm = "am"
+    else:
+        ampm = "pm"
+    await ctx.send("it is currently " + ct + ampm + " (EDT).")
+
 
 @bot.command(name="numgame", aliases=["numguess"])
 async def numgame(ctx):
