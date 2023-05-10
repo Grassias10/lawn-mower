@@ -29,14 +29,19 @@ class NumGame():
                 msg = await client.wait_for("message", check=checkMsg)
                 self.player_guess = int(msg.content)
                 if self.player_guess == self.target_num:
-                    await ctx.send(f"you won! the number was {self.target_num}")
+                    self.did_guess = True
                     break
                 elif self.player_guess > self.target_num:
                     await ctx.send(f"too high! you have {self.num_of_guesses - x} guesses left")
                 elif self.player_guess < self.target_num:
                     await ctx.send(f"too low! you have {self.num_of_guesses - x} guesses left")
             except ValueError:
-                await ctx.send("not a valid guess. please enter a valid guess.")
+                if msg.content.lower().strip() == "stop":
+                    self.endgame = True
+                    break
+                else:
+                    await ctx.send("not a valid guess. please enter a number.")
+                    x -= 1
 
         if self.endgame:
             await ctx.send("game ended by player. see you next time!")
