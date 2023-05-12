@@ -1,16 +1,29 @@
 import discord
 import json
+import requests
+import random
 from discord.ext import commands
 from datetime import datetime
+from bs4 import BeautifulSoup
 import blowupbash as bub
 import numgame as ng
+
 
 inte = discord.Intents.all()
 bot = commands.Bot(command_prefix='...', intents=inte)
 
 
+shitposts = []
+def load_shitposts():
+    r = requests.get("https://www.pinterest.com/Grassias10/poop-post/")
+    soup = BeautifulSoup(r.text, "html.parser")
+    for item in soup.find_all("img"):
+        shitposts.append(item["src"])
+
+
 @bot.event
 async def on_ready():
+    load_shitposts()
     print("bot started!")
 
 
@@ -34,7 +47,7 @@ async def blowupbash(ctx):
 
 
 @bot.command(name="today", aliases=["currenttime", "currentdate", "datetime", "timedate", "dt", "td"])
-async def time(ctx):
+async def today(ctx):
     today = datetime.now()
     ct = today.strftime("%I:%M")
     ampm = ""
@@ -48,7 +61,7 @@ async def time(ctx):
 
 
 @bot.command(name="date", aliases=["d"])
-async def time(ctx):
+async def date(ctx):
     d = str(datetime.now())
     date = d.split(" ")
     await ctx.send("today is " + date[0] + " (yyyy-mm-dd).")
@@ -72,6 +85,11 @@ async def numgame(ctx):
     ng.games.append(ngame)
     await ngame.setPlayerId(ctx.author.id)
     await ngame.game(ctx, bot)
+
+
+@bot.command(name="shitpost", aliases=["sp"])
+async def shitpost(ctx):
+    await ctx.send(shitposts[int(random.randrange(0, len(shitposts)))])
 
 if __name__ == "__main__":
     with open("secrets.json") as sec:
