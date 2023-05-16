@@ -10,7 +10,7 @@ import numgame as ng
 
 
 inte = discord.Intents.all()
-bot = commands.Bot(command_prefix='...', intents=inte)
+bot = commands.Bot(command_prefix='%', intents=inte)
 
 
 shitposts = []
@@ -87,7 +87,7 @@ async def numgame(ctx):
     await ngame.game(ctx, bot)
 
 
-@bot.command(name="shitpost", aliases=["sp"])
+@bot.command(name="shitpost", aliases=["sp", "shitposts", "pooppost"])
 async def shitpost(ctx):
     await ctx.send(shitposts[int(random.randrange(0, len(shitposts)))])
 
