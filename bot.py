@@ -92,6 +92,10 @@ async def shitpost(ctx):
     await ctx.send(shitposts[int(random.randrange(0, len(shitposts)))])
 
 
+#@bot.command(name="ror", aliases=["roritem"])
+#async def ror(ctx):
+
+
 if __name__ == "__main__":
     with open("secrets.json") as sec:
         data = json.load(sec)

@@ -41,7 +41,7 @@ class NumGame():
                     break
                 else:
                     await ctx.send("not a valid guess. please enter a number.")
-                    x -= 1
+                    x += 1
 
         if self.endgame:
             await ctx.send("game ended by player. see you next time!")
