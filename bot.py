@@ -91,6 +91,7 @@ async def numgame(ctx):
 async def shitpost(ctx):
     await ctx.send(shitposts[int(random.randrange(0, len(shitposts)))])
 
+
 if __name__ == "__main__":
     with open("secrets.json") as sec:
         data = json.load(sec)
